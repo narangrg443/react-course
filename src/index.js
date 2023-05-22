@@ -1,29 +1,26 @@
-import React from "react"
-import ReactDom from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
+import Profile from "./components/profile";
+import profiles from "./components/contact";
+//import Avatar from "./components/avatar";
 
-let c = {
-  color: ""
-}
+ReactDOM.render(
+  <div class="container">
+    {profiles.map((profile, index) => (
+    <div>
+    <Profile
 
-const t = 1;
-if (t === 12) {
-  c.color = "red"
-} else {
-  c.color = "blue"
-}
+      key={index}
 
-function By() {
-  return <b>byyyyy</b>
-}
+      name={profile.name}
+      age={profile.age}
+      src={profile.src}
+      email={profile.email}
+      style={ { color: profile.color, background: profile.background }}
+      />
+    </div>
 
-
-const name = 'mandep';
-ReactDom.render(
-  <div>
-    <h1 style={c}>hello{name}</h1>
-     <ul>
-     <li>apple</li>
-  </ul>
-  <By />
+  ))}
   </div>,
-  document.getElementById('root'));
+  document.getElementById('root')
+);
