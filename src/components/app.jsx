@@ -1,32 +1,52 @@
 import React, { useState } from "react";
 
 const App = () => {
-  const [count, setCount] = useState(0);
-  const [headingText, setHeadingText] = useState("hello");
-  const [headingColor, setHeadingColor] = useState("white");
+  const [contact, setContact] = useState({
+    fName: "",
+    lName: "",
+    email: ""
+  });
 
-  const increment = () => {
-    setCount(count + 1);
-    setHeadingText("incremented");
-    setHeadingColor("blue");
+  const changeHandlerf = (e) => {
+    setContact({ ...contact, fName: e.target.value });
   };
 
-  const decrement = () => {
-    setCount(count - 1);
-    setHeadingText("decremented");
-    setHeadingColor("red");
+  const changeHandlerl = (e) => {
+    setContact({ ...contact, lName: e.target.value });
   };
 
-  const style = {
-    color: headingColor,
+  const changeHandlere = (e) => {
+    setContact({ ...contact, email: e.target.value });
   };
 
   return (
-    <div>
-      <h3 style={style}>{headingText}</h3>
-      <h2>Counter: {count}</h2>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
+    <div className="app-container">
+      <div>
+      <h1>
+        Hello {contact.fName} {contact.lName}
+      </h1>
+      <p>{contact.email}</p>
+       </div>
+      <form>
+        <input
+          name="fName"
+          onChange={changeHandlerf}
+          placeholder="First Name"
+        />
+        <input
+          name="lName"
+          onChange={changeHandlerl}
+          placeholder="Last Name"
+        />
+        <input
+          name="email"
+          onChange={changeHandlere}
+          placeholder="Email"
+        />
+<div className="btn-submit">
+        <button>Submit</button>
+</div>
+      </form>
     </div>
   );
 };
