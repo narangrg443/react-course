@@ -1,31 +1,33 @@
 import React, { useState } from "react";
+import Todo from "./todo"
 
-const App = () => {
-  const [todoList, setTodoList] = useState([]);
-  const [newTodo, setNewTodo] = useState("");
-
-  const addTodo = () => {
-    setTodoList([...todoList, newTodo]);
-    setNewTodo("");
-  };
-
+const App=()=>{
+  const [todo,settodo]=useState(["helllo","fello","bello"]);
+  const [newtodo,setnewtodo]=useState("");
+  
+  
+  
   return (
     <div className="app-container">
-      <h2>Todo List</h2>
-      <input
-        type="text"
-        placeholder="Add to-do item"
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-      />
-      <button onClick={addTodo}>Add</button>
-      <div className="todo-list">
-        {todoList.map((todo, index) => (
-          <div key={index}>{todo}</div>
-        ))}
-      </div>
+    <h2>to do list</h2>
+    <input type="text"placeholder="hello"/>
+    <button>todo</button>
+    
+    
+  <ul>
+  {todo.map(t=>(
+  <Todo text={t}/>
+  
+  ))
+    
+}
+</ul>
     </div>
-  );
-};
+    
+    );
+  
+  
+}
+
 
 export default App;
