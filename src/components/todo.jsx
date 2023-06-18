@@ -1,22 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Todo = (props) => {
-  const [strike, setStrike] = useState(false);
-
-  function styleHandler() {
-    setStrike((prev) => !prev);
+const TodoItem = ({ id, text, onDelete,style }) => {
+  function handleDelete() {
+    onDelete(id);
   }
 
-  const textStyle = {
-    textDecoration: strike ? "line-through" : "none"
-    
-  };
-
   return (
-    <div onClick={styleHandler} style={textStyle}>
-      <li>{props.text}</li>
-    </div>
+    <li>
+    <div className="item-container">
+      <span style={style}>{text}</span>
+      <button className="deleteBtn" onClick={handleDelete}>Delete</button>
+      </div>
+    </li>
   );
 };
 
-export default Todo;
+export default TodoItem;
