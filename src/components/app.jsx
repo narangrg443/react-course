@@ -1,46 +1,89 @@
 import React, { useState } from "react";
-import Todo from "./todo";
-import Input from "./input";
-import Checked from "./checkbox"
 
+const Input = () => {
+  const [todolist, setTodolist] = useState([]);
+  const [todo, setTodo] = useState("");
 
-const App = () => {
-  const [todo, setTodo] = useState(["hello", "fello", "bello"]);
-const [isChecked,setchecked]=useState(false);
-  function clickHandler(e){
-    setTodo([...todo, e]);
-  }
+  const changeHandler = (e) => {
+    setTodo(e.target.value);
+  };
 
-  function deleteHandler(index) {
-    const updatedTodo = [...todo];
-    updatedTodo.splice(index, 1);
-    setTodo(updatedTodo);
-  }
+  const clickHandler = (e) => {
+    e.preventDefault();
+    addTodo();
+  };
 
-function crossHandler(isChecked){
-  
-  setchecked(isChecked);
-}
+  const enterHandler = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      addTodo();
+    }
+  };
+
+  const addTodo = () => {
+    if (todo.trim() !== "") {
+      const newTodo = {
+        id: Date.now(),
+        todo: todo,
+        checked: false, // Added 'checked' property to track the checked state
+      };
+      setTodolist((prevTodoList) => [...prevTodoList, newTodo]);
+      setTodo("");
+    }
+  };
+
+  const toggleChecked = (id) => {
+    setTodolist((prevTodoList) =>
+      prevTodoList.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, checked: !todo.checked };
+        }
+        return todo;
+      })
+    );
+  };
+
+  const deleteHandler = (id) => {
+    setTodolist((prevTodoList) =>
+      prevTodoList.filter((todo) => todo.id !== id)
+    );
+  };
 
   return (
-    <div className="app-container">
-      <h2>Todo List</h2>
-      
-      <Input onClick={clickHandler} />
-      <ul>
-        {todo.map((t, index) => (
-        <div className="check-list-container">
-           <Checked cross={crossHandler} /> 
-           <Todo 
-           key={index} 
-           id={index} 
-           onDelete={deleteHandler} 
-           style={{textDecoration:isChecked?"line-through":"none"}} 
-           text={t} />
+    <div className="input-container">
+      <input
+        type="text"
+        placeholder="notes.."
+        value={todo}
+        onChange={changeHandler}
+        onKeyDown={enterHandler}
+      />
+      <button type="submit" onClick={clickHandler}>
+        add
+      </button>
+
+      {todolist.map((todo) => (
+        <div className="todo-container" key={todo.id}>
+          <input
+            type="checkbox"
+            checked={todo.checked} // Bind checked state to the 'checked' property
+            onChange={() => toggleChecked(todo.id)} // Toggle checked state on change
+          />
+
+          <b className={todo.checked ? "todo-text checked" : "todo-text"}>
+            {todo.todo}
+          </b>
+          <button onClick={() => deleteHandler(todo.id)}>delete</button>
         </div>
-        
-        ))}
-      </ul>
+      ))}
+    </div>
+  );
+};
+
+const App = () => {
+  return (
+    <div className="app-container">
+      <Input />
     </div>
   );
 };

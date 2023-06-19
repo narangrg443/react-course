@@ -1,18 +1,9 @@
-import React from "react";
+const Todo=()=>{
+  return(
+    <div>
+      <span class="items"></span>
+    </div>
+    );
+}
 
-const TodoItem = ({ id, text, onDelete,style }) => {
-  function handleDelete() {
-    onDelete(id);
-  }
-
-  return (
-    <li>
-    <div className="item-container">
-      <span style={style}>{text}</span>
-      <button className="deleteBtn" onClick={handleDelete}>Delete</button>
-      </div>
-    </li>
-  );
-};
-
-export default TodoItem;
+export default Todo;

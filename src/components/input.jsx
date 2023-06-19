@@ -1,42 +1,35 @@
-import React, { useState, useRef } from "react";
 
-const Input = ({ onClick }) => {
-  const [inputValue, setInputValue] = useState("");
-  const inputRef = useRef(null);
+import React,{useState}  from "react";
 
-  function handleChange(e) {
-    setInputValue(e.target.value);
-  }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (inputValue.trim() !== "") {
-      onClick(inputValue);
-      setInputValue("");
-    }
-  }
 
-  function handleKeyPress(e) {
-    if (e.key === "Enter") {
-      handleSubmit(e);
-    }
-  }
+const Input=({onSubmit})=>{
+const [items,setitems]=useState("");
+
+function handleSubmit(e){
+  e.preventDefault();
+  onSubmit(items);
+  
+  
+}
 
   return (
-    <div className="form-container">
+    <div className="input-container">
     <form onSubmit={handleSubmit}>
-      <input className="input-field"
-        type="text"
-        value={inputValue}
-        onChange={handleChange}
-        onKeyPress={handleKeyPress}
-        ref={inputRef}
-        placeholder="notes...."
+      <input 
+      type ="text"  
+      placeholder="notes.."
+      value={items}
+      onChange={(e)=>{setitems(e.target.value)}}
       />
-      <button className="addBtn" type="submit">Add</button>
+    <button type="submit">add</button>
+    
     </form>
     </div>
-  );
-};
+    );
+}
+
+
+
 
 export default Input;
