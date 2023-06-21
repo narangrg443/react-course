@@ -1,106 +1,60 @@
-.app-container {
-  overflow-y: auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  max-width: 400px;
-  min-height: 130px;
-
-
-  margin: 10px auto;
-  padding: 20px;
-  background-color: grey;
-  border-radius: 5px;
+body {
+  background-color: black;
 }
 
-
-.form-container {
+.app-container {
   display: flex;
-  justify-content: center;
-  flex-direction: rows;
-  align-items: center;
-  background-color: lightgreen;
-  border-radius: 5px;
+  flex-direction: column;
+  margin: auto;
+  width: 200px;
+  min-height: 100px;
+  background-color: lightblue;
+
+}
+.input-container {
+  display: flex;
   width: 200px;
 
-}
-.input-field {
-  align-self: center;
-  background: lightgreen;
-  margin-bottom: 5px;
-  margin-left: 5px;
-  padding: 2px;
-  width: 90%;
-  min-height: 25px;
-  border: none;
-  border-bottom: 1px solid #ccc;
 
 }
 
-.input-field:focus {
-  outline: none;
-  border-bottom-color: #007bff;
+.input-container input {
+  flex: 1;
+  width: 140px;
+  /* 80% width */
+}
+
+.input-container button {
+  flex: 1;
+  /* Remaining width */
 }
 
 
-
-button {
-
-  background-color: lightblue;
-  padding: 5px 8px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 5px;
-
-}
-button:hover {}
-
-.item-container {
+.todo-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background: lightgreen;
   min-width: 100px;
-  min-height: 40px;
-  margin: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-radius: 5px;
+  min-height: 25px;
+  background-color: lightgreen;
+
+
+}
+input {
+  /* min-width: 100px; */
+}
+
+.item {
   overflow-y: auto;
-
-}
-.deleteBtn {
-  background-color: none;
-  background: none;
-  color: red;
-
-
-}
-ul {
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-
-
-  list-style-type: none;
+  margin:10px;
 
 }
 
-
-.addBtn {
-  align-self: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-
+.cross{
+  text-decoration: line-through;
+  color:red;
+  
 }
-.check-list-container {
 
-  display: flex;
-  flex-direction: rows;
-  justify-content: space-between;
-  align-items: center;
-
+.completed{
+  background-color: lightblue;
 }

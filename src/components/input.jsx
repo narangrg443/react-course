@@ -1,40 +1,18 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 
-const Input = ({ onClick }) => {
-  const [inputValue, setInputValue] = useState("");
-  const inputRef = useRef(null);
-
-  function handleChange(e) {
-    setInputValue(e.target.value);
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (inputValue.trim() !== "") {
-      onClick(inputValue);
-      setInputValue("");
-    }
-  }
-
-  function handleKeyPress(e) {
-    if (e.key === "Enter") {
-      handleSubmit(e);
-    }
-  }
-
+const Input = ({ todo, changeHandler, clickHandler, keyHandler }) => {
   return (
-    <div className="form-container">
-    <form onSubmit={handleSubmit}>
-      <input className="input-field"
+    <div className="input-container">
+      <input
         type="text"
-        value={inputValue}
-        onChange={handleChange}
-        onKeyPress={handleKeyPress}
-        ref={inputRef}
-        placeholder="notes...."
+        placeholder="notes.."
+        value={todo}
+        onChange={changeHandler}
+        onKeyDown={keyHandler}
       />
-      <button className="addBtn" type="submit">Add</button>
-    </form>
+      <button type="submit" onClick={clickHandler}>
+        Add
+      </button>
     </div>
   );
 };

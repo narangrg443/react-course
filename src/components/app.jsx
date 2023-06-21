@@ -1,46 +1,73 @@
 import React, { useState } from "react";
-import Todo from "./todo";
 import Input from "./input";
-import Checked from "./checkbox"
-
 
 const App = () => {
-  const [todo, setTodo] = useState(["hello", "fello", "bello"]);
-const [isChecked,setchecked]=useState(false);
-  function clickHandler(e){
-    setTodo([...todo, e]);
-  }
+  const [todo, setTodo] = useState("");
+  const [todoList, setTodoList] = useState([]);
 
-  function deleteHandler(index) {
-    const updatedTodo = [...todo];
-    updatedTodo.splice(index, 1);
-    setTodo(updatedTodo);
-  }
+  const changeHandler = (e) => {
+    setTodo(e.target.value);
+  };
 
-function crossHandler(isChecked){
-  
-  setchecked(isChecked);
-}
+  const clickHandler = () => {
+    printHandler();
+  };
+
+  const keyHandler = (e) => {
+    if (e.key === "Enter") {
+      printHandler();
+    }
+  };
+
+  const deleteHandler = (id) => {
+    setTodoList((prevTodoList) =>
+      prevTodoList.filter((todo) => todo.id !== id)
+    );
+  };
+
+  const toggleComplete = (id) => {
+    setTodoList((prevTodoList) =>
+      prevTodoList.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, completed: !todo.completed };
+        }
+        return todo;
+      })
+    );
+  };
+
+  const printHandler = () => {
+    if (todo.trim() !== "") {
+      setTodoList((prevTodoList) => [
+        ...prevTodoList,
+        { id: Date.now(), todo: todo, completed: false },
+      ]);
+      setTodo("");
+    }
+  };
 
   return (
     <div className="app-container">
-      <h2>Todo List</h2>
-      
-      <Input onClick={clickHandler} />
-      <ul>
-        {todo.map((t, index) => (
-        <div className="check-list-container">
-           <Checked cross={crossHandler} /> 
-           <Todo 
-           key={index} 
-           id={index} 
-           onDelete={deleteHandler} 
-           style={{textDecoration:isChecked?"line-through":"none"}} 
-           text={t} />
-        </div>
-        
-        ))}
-      </ul>
+      <Input
+        todo={todo}
+        changeHandler={changeHandler}
+        clickHandler={clickHandler}
+        keyHandler={keyHandler}
+      />
+
+      {todoList.map((todo) => (
+        <div
+          className={`todo-container ${todo.completed ? "completed" : ""}`}
+          key={todo.id}
+        >
+          <input
+            type="checkbox"
+            checked={todo.completed}
+            onChange={() => toggleComplete(todo.id)}
+          />
+          <b className={`item ${todo.completed && "cross"}`}>{todo.todo}</b>
+         { todo.completed && (<button onClick={() => deleteHandler(todo.id)}>delete</button>)} </div>
+      ))}
     </div>
   );
 };
