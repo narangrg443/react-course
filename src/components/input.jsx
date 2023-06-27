@@ -1,35 +1,24 @@
-
-import React,{useState}  from "react";
-
+import React,{useState} from "react";
 
 
-const Input=({onSubmit})=>{
-const [items,setitems]=useState("");
-
-function handleSubmit(e){
-  e.preventDefault();
-  onSubmit(items);
+const Input=({onClick})=>{
   
+  const [todo,setTodo]=useState("");
+   console.log("input refreshed");
+ return(
+   <>
+   <input 
+   placeholder="countries..."
+   value={todo} 
+   onChange={(e)=>{ setTodo(e.target.value)}}
+  
+   />
+   <button onClick={()=>{if(todo.trim()!=="")onClick(todo); setTodo("")}}>submit</button>
+  
+   </>
+   
+   ); 
   
 }
-
-  return (
-    <div className="input-container">
-    <form onSubmit={handleSubmit}>
-      <input 
-      type ="text"  
-      placeholder="notes.."
-      value={items}
-      onChange={(e)=>{setitems(e.target.value)}}
-      />
-    <button type="submit">add</button>
-    
-    </form>
-    </div>
-    );
-}
-
-
-
 
 export default Input;
